@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ezequiel &amp; Karla — Nos Casamos | 11 de Octubre 2026</title>
+<meta name="description" content="Acompáñanos a celebrar la boda de Ezequiel y Karla el 11 de octubre de 2026 en Jalisco, México.">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Ezequiel & Karla — Nos Casamos">
+<meta property="og:description" content="11 de Octubre de 2026 · Jalisco, México">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/icons/og-cover.jpg">
+
+<link rel="icon" href="assets/icons/favicon.png" type="image/png">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Swiper.js para la galería -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
+</head>
+<body>
+
+<!-- ============================================================
+     PANTALLA DEL SOBRE ANIMADO
+     ============================================================ -->
+<div class="envelope-screen" aria-hidden="false">
+  <div class="envelope">
+    <p class="envelope__names">Ezequiel &amp; Karla</p>
+    <div class="envelope__card">Nos Casamos</div>
+    <div class="envelope__body"></div>
+    <div class="envelope__flap"></div>
+    <div class="envelope__seal">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/>
+      </svg>
+    </div>
+  </div>
+  <p class="envelope-screen__hint">Toca el sobre para abrir</p>
+</div>
+
+<!-- ============================================================
+     MODAL DE MÚSICA
+     ============================================================ -->
+<div class="music-modal">
+  <div class="music-modal__box">
+    <svg class="music-modal__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+    </svg>
+    <p class="music-modal__text">¿Deseas escuchar<br>nuestra canción?</p>
+    <div class="music-modal__actions">
+      <button class="btn-gold" data-music="yes" type="button">Sí</button>
+      <button class="btn-outline" data-music="no" type="button">No</button>
+    </div>
+  </div>
+</div>
+
+<audio id="wedding-audio" loop preload="none">
+  <source src="assets/audio/nuestra-cancion.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-toggle" type="button" aria-label="Pausar o reproducir música">
+  <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</button>
+
+<!-- ============================================================
+     APP PRINCIPAL
+     ============================================================ -->
+<div class="app">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero">
+    <div class="particles-layer" data-count="14"></div>
+    <p class="hero__blessing fade-up">Con la bendición de nuestras familias</p>
+
+    <img class="hero__photo fade-up" src="assets/fotos/pareja-principal.jpg" alt="Ezequiel y Karla" width="168" height="168">
+
+    <h1 class="hero__names fade-up">
+      Ezequiel
+      <span class="hero__ampersand text-script">&amp;</span>
+      Karla
+    </h1>
+
+    <p class="hero__date fade-up">11 · OCTUBRE · 2026</p>
+    <p class="hero__subtitle fade-up">Nos Casamos</p>
+
+    <div class="countdown fade-up" style="margin-top: 2.5rem;">
+      <div class="countdown__unit">
+        <span class="countdown__number" data-countdown="days">00</span>
+        <span class="countdown__label">Días</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__number" data-countdown="hours">00</span>
+        <span class="countdown__label">Horas</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__number" data-countdown="minutes">00</span>
+        <span class="countdown__label">Min</span>
+      </div>
+      <div class="countdown__unit">
+        <span class="countdown__number" data-countdown="seconds">00</span>
+        <span class="countdown__label">Seg</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ GALERÍA ============ -->
+  <section class="section gallery fade-up" aria-labelledby="galeria-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Momentos</p>
+      <h2 class="section-title__heading" id="galeria-title">Nuestra Galería</h2>
+    </div>
+
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide"><img src="assets/fotos/galeria-01.jpg" alt="Ezequiel y Karla, foto 1" loading="lazy"></div>
+        <div class="swiper-slide"><img src="assets/fotos/galeria-02.jpg" alt="Ezequiel y Karla, foto 2" loading="lazy"></div>
+        <div class="swiper-slide"><img src="assets/fotos/galeria-03.jpg" alt="Ezequiel y Karla, foto 3" loading="lazy"></div>
+        <div class="swiper-slide"><img src="assets/fotos/galeria-04.jpg" alt="Ezequiel y Karla, foto 4" loading="lazy"></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <!-- ============ NUESTRA HISTORIA ============ -->
+  <section class="section fade-up" aria-labelledby="historia-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Nuestro Camino</p>
+      <h2 class="section-title__heading" id="historia-title">Nuestra Historia</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline__item">
+        <span class="timeline__dot"></span>
+        <img class="timeline__photo" src="assets/fotos/historia-01.jpg" alt="Cómo nos conocimos" loading="lazy">
+        <p class="timeline__date">Cómo nos conocimos</p>
+        <h3 class="timeline__title">El comienzo</h3>
+        <p class="timeline__desc">Cuenta aquí brevemente cómo se conocieron Ezequiel y Karla — el lugar, el momento, lo que recuerdan de ese primer encuentro.</p>
+      </div>
+
+      <div class="timeline__item">
+        <span class="timeline__dot"></span>
+        <img class="timeline__photo" src="assets/fotos/historia-02.jpg" alt="Primer viaje juntos" loading="lazy">
+        <p class="timeline__date">Primer viaje</p>
+        <h3 class="timeline__title">Nuestra primera aventura</h3>
+        <p class="timeline__desc">Describe el primer viaje que hicieron juntos y por qué fue especial para su relación.</p>
+      </div>
+
+      <div class="timeline__item">
+        <span class="timeline__dot"></span>
+        <img class="timeline__photo" src="assets/fotos/historia-03.jpg" alt="El compromiso" loading="lazy">
+        <p class="timeline__date">El compromiso</p>
+        <h3 class="timeline__title">Dijimos que sí</h3>
+        <p class="timeline__desc">Comparte la historia de la propuesta: cómo, dónde y cómo se sintieron en ese momento.</p>
+      </div>
+
+      <div class="timeline__item">
+        <span class="timeline__dot"></span>
+        <img class="timeline__photo" src="assets/fotos/historia-04.jpg" alt="Camino al altar" loading="lazy">
+        <p class="timeline__date">Camino al altar</p>
+        <h3 class="timeline__title">Hoy, hacia el altar</h3>
+        <p class="timeline__desc">Cierra la historia con un mensaje sobre lo que sienten al llegar a este día tan importante.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CEREMONIA ============ -->
+  <section class="section fade-up" style="background: var(--color-blush);" aria-labelledby="ceremonia-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Nos Reunimos En</p>
+      <h2 class="section-title__heading" id="ceremonia-title">Ceremonia</h2>
+    </div>
+
+    <div class="event-card">
+      <svg class="event-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2v6M9 8h6M5 21V10l7-5 7 5v11M9 21v-6h6v6"/>
+      </svg>
+      <p class="event-card__name">Parroquia [Nombre de la Iglesia]</p>
+      <p class="event-card__address">[Dirección de la parroquia, Colonia, Ciudad, Jalisco]</p>
+      <p class="event-card__time">12:00 PM</p>
+      <a class="btn-gold" href="https://www.google.com/maps" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Cómo Llegar
+      </a>
+      <p class="event-card__note">Te pedimos llegar 15 minutos antes del inicio.</p>
+    </div>
+  </section>
+
+  <!-- ============ RECEPCIÓN ============ -->
+  <section class="section fade-up" aria-labelledby="recepcion-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">La Celebración</p>
+      <h2 class="section-title__heading" id="recepcion-title">Recepción</h2>
+    </div>
+
+    <div class="event-card">
+      <svg class="event-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 21h16M6 21V8l6-5 6 5v13M10 21v-6h4v6"/>
+      </svg>
+      <p class="event-card__name">[Nombre del Salón]</p>
+      <p class="event-card__address">[Dirección del salón, Colonia, Ciudad, Jalisco]</p>
+      <p class="event-card__time">2:00 PM</p>
+      <a class="btn-gold" href="https://www.google.com/maps" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Ver Ubicación
+      </a>
+    </div>
+  </section>
+
+  <!-- ============ ITINERARIO ============ -->
+  <section class="section fade-up" style="background: var(--color-crema);" aria-labelledby="itinerario-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">El Gran Día</p>
+      <h2 class="section-title__heading" id="itinerario-title">Itinerario</h2>
+    </div>
+
+    <div class="itinerary">
+      <div class="itinerary__row">
+        <span class="itinerary__time">12:00</span>
+        <span class="itinerary__label">Ceremonia Religiosa</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">14:00</span>
+        <span class="itinerary__label">Recepción de Invitados</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">15:00</span>
+        <span class="itinerary__label">Banquete</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">17:00</span>
+        <span class="itinerary__label">Brindis</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">18:00</span>
+        <span class="itinerary__label">Primer Baile</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">20:00</span>
+        <span class="itinerary__label">Pastel</span>
+      </div>
+      <div class="itinerary__row">
+        <span class="itinerary__time">21:00</span>
+        <span class="itinerary__label">Fiesta</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOLO ADULTOS ============ -->
+  <section class="adults-only fade-up" aria-labelledby="adultos-title">
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="3"/></svg>
+    </div>
+    <svg class="adults-only__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 00-4-4H7a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/>
+    </svg>
+    <h2 class="adults-only__title" id="adultos-title">Evento Solo Para Adultos</h2>
+    <p class="adults-only__text">Queremos que disfrutes esta celebración al máximo. Con mucho cariño, te pedimos hacer arreglos para tus pequeños en casa.</p>
+  </section>
+
+  <!-- ============ CÓDIGO DE VESTIMENTA ============ -->
+  <section class="section dress-code fade-up" aria-labelledby="vestimenta-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Cómo Vestir</p>
+      <h2 class="section-title__heading" id="vestimenta-title">Código de Vestimenta</h2>
+    </div>
+    <p class="dress-code__title">Formal Elegante</p>
+
+    <div class="color-palette" aria-hidden="true">
+      <div class="color-swatch">
+        <span class="color-swatch__dot" style="background:#1B2A4A;"></span>
+        <span class="color-swatch__label">Navy</span>
+      </div>
+      <div class="color-swatch">
+        <span class="color-swatch__dot" style="background:#5E1B26;"></span>
+        <span class="color-swatch__label">Borgoña</span>
+      </div>
+      <div class="color-swatch">
+        <span class="color-swatch__dot" style="background:#2F4A3C;"></span>
+        <span class="color-swatch__label">Verde Botella</span>
+      </div>
+      <div class="color-swatch">
+        <span class="color-swatch__dot" style="background:#B8966A;"></span>
+        <span class="color-swatch__label">Dorado</span>
+      </div>
+      <div class="color-swatch">
+        <span class="color-swatch__dot" style="background:#EDE6D9;"></span>
+        <span class="color-swatch__label">Crema</span>
+      </div>
+    </div>
+
+    <p class="dress-code__avoid">Te pedimos evitar el blanco, marfil y negro total.</p>
+  </section>
+
+  <!-- ============ PADRINOS ============ -->
+  <section class="section fade-up" style="background: var(--color-blush);" aria-labelledby="padrinos-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Gracias Por Su Apoyo</p>
+      <h2 class="section-title__heading" id="padrinos-title">Padrinos</h2>
+    </div>
+
+    <div class="sponsors-grid">
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Lazo</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Arras</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Anillos</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Velación</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Flores</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+      <div class="elegant-card sponsor-card">
+        <p class="sponsor-card__type">Cojines</p>
+        <p class="sponsor-card__names">[Nombre y Nombre]</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MESA DE REGALOS ============ -->
+  <section class="section gifts fade-up" aria-labelledby="regalos-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Con Cariño</p>
+      <h2 class="section-title__heading" id="regalos-title">Mesa de Regalos</h2>
+    </div>
+
+    <p class="gifts__message">"Tu presencia es nuestro mejor regalo."</p>
+
+    <div class="gifts-options">
+      <div class="elegant-card gift-option">
+        <div>
+          <p class="gift-option__name">Liverpool</p>
+          <p class="gift-option__detail">Mesa de regalos #00000</p>
+        </div>
+        <a class="btn-outline" href="#" target="_blank" rel="noopener">Ver</a>
+      </div>
+      <div class="elegant-card gift-option">
+        <div>
+          <p class="gift-option__name">Transferencia</p>
+          <p class="gift-option__detail">Datos bancarios disponibles a quien los solicite</p>
+        </div>
+      </div>
+      <div class="elegant-card gift-option">
+        <div>
+          <p class="gift-option__name">Amazon</p>
+          <p class="gift-option__detail">Lista de regalos (opcional)</p>
+        </div>
+        <a class="btn-outline" href="#" target="_blank" rel="noopener">Ver</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ COMPARTE TUS FOTOS ============ -->
+  <section class="section share-photos fade-up" style="background: var(--color-crema);" aria-labelledby="fotos-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Captura El Momento</p>
+      <h2 class="section-title__heading" id="fotos-title">Comparte Tus Fotos</h2>
+    </div>
+
+    <p class="share-photos__hashtag">#EzequielYKarla2026</p>
+    <p style="font-size:0.85rem; color: var(--color-taupe);">Sube tus fotos a nuestro álbum compartido de Google Photos escaneando el código:</p>
+
+    <div class="share-photos__qr">
+      <img src="assets/qr/google-photos-qr.png" alt="Código QR para subir fotos a Google Photos" loading="lazy">
+    </div>
+  </section>
+
+  <!-- ============ RSVP ============ -->
+  <section class="section fade-up" aria-labelledby="rsvp-title">
+    <div class="section-title">
+      <p class="section-title__eyebrow">Por Favor Confirma</p>
+      <h2 class="section-title__heading" id="rsvp-title">Confirma Tu Asistencia</h2>
+    </div>
+
+    <form id="rsvp-form" class="rsvp-form" novalidate>
+      <!-- Honeypot anti-spam: campo invisible, debe quedar vacío -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="website">No llenar este campo</label>
+        <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" name="nombre" required autocomplete="name">
+      </div>
+
+      <div class="form-group">
+        <label>¿Nos Acompañarás?</label>
+        <div class="attendance-toggle">
+          <input type="radio" id="asiste-si" name="asiste" value="si" required>
+          <label for="asiste-si">Sí, asistiré</label>
+          <input type="radio" id="asiste-no" name="asiste" value="no">
+          <label for="asiste-no">No podré ir</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="num_personas">Número de Personas</label>
+        <input type="number" id="num_personas" name="num_personas" min="1" max="10">
+      </div>
+
+      <div class="form-group">
+        <label for="menu">Preferencia de Menú</label>
+        <select id="menu" name="menu">
+          <option value="">Selecciona una opción</option>
+          <option value="carne">Carne</option>
+          <option value="pollo">Pollo</option>
+          <option value="vegetariano">Vegetariano</option>
+          <option value="vegano">Vegano</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="alergias">Alergias Alimentarias</label>
+        <input type="text" id="alergias" name="alergias" placeholder="Opcional">
+      </div>
+
+      <div class="form-group">
+        <label for="cancion">¿Qué Canción No Puede Faltar?</label>
+        <input type="text" id="cancion" name="cancion" placeholder="Opcional">
+      </div>
+
+      <div class="form-group">
+        <label for="mensaje">Mensaje Para Los Novios</label>
+        <textarea id="mensaje" name="mensaje" placeholder="Opcional"></textarea>
+      </div>
+
+      <p class="rsvp-error" role="alert"></p>
+
+      <button type="submit" class="btn-gold rsvp-submit">Confirmar Asistencia</button>
+    </form>
+
+    <div class="rsvp-success">
+      <svg class="rsvp-success__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3"/>
+      </svg>
+      <h3 class="rsvp-success__title">¡Gracias por confirmar!</h3>
+      <p class="rsvp-success__text">Estamos felices de contar contigo en este día tan especial.</p>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer fade-up">
+    <p class="footer__names">Ezequiel &amp; Karla</p>
+    <p class="footer__date">11 de Octubre de 2026</p>
+    <div class="ornament" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="12" r="3"/></svg>
+    </div>
+    <p class="footer__thanks">Gracias por ser parte de nuestra historia y acompañarnos a celebrar el inicio de esta nueva etapa.</p>
+  </footer>
+
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
+<script src="js/envelope.js"></script>
+<script src="js/countdown.js"></script>
+<script src="js/animations.js"></script>
+<script src="js/particles.js"></script>
+<script src="js/music.js"></script>
+<script src="js/rsvp.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
