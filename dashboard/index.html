@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel — Ezequiel &amp; Karla</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<!-- ============================================================
+     PANTALLA DE LOGIN
+     ============================================================ -->
+<div class="login-screen" id="login-screen">
+  <div class="login-box">
+    <p class="login-eyebrow">Panel privado</p>
+    <h1 class="login-title">Ezequiel &amp; Karla</h1>
+    <p class="login-sub">Inicia sesión para gestionar tus invitados</p>
+
+    <form id="login-form" novalidate>
+      <div class="form-group">
+        <label for="login-email">Correo</label>
+        <input type="email" id="login-email" name="email" required autocomplete="username" placeholder="correo@ejemplo.com">
+      </div>
+      <div class="form-group">
+        <label for="login-password">Contraseña</label>
+        <input type="password" id="login-password" name="password" required autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <p class="login-error" id="login-error" role="alert"></p>
+      <button type="submit" class="btn-primary btn-icon" id="login-submit" style="width:100%; justify-content:center; margin-top:0.5rem;">
+        Entrar
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     APP DEL ADMIN
+     ============================================================ -->
+<div class="admin-app" id="admin-app">
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="admin-header__brand">
+      <div class="admin-header__seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/>
+        </svg>
+      </div>
+      <div>
+        <p class="admin-header__eyebrow">Panel de administración</p>
+        <p class="admin-header__title">Ezequiel &amp; Karla</p>
+      </div>
+    </div>
+    <div class="admin-header__actions">
+      <span class="admin-header__date">11 · Oct · 2026</span>
+      <button class="btn-logout" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- MÉTRICAS -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <p class="metric-card__label">Lugares totales</p>
+        <p class="metric-card__value" id="m-total">—</p>
+        <p class="metric-card__sub">boletos asignados</p>
+      </div>
+      <div class="metric-card metric-card--success">
+        <p class="metric-card__label">Confirmados</p>
+        <p class="metric-card__value" id="m-confirmados">—</p>
+        <p class="metric-card__sub" id="m-confirmados-pct">de los invitados</p>
+        <div class="metric-progress">
+          <div class="metric-progress__bar" id="m-progress" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="metric-card metric-card--warning">
+        <p class="metric-card__label">Pendientes</p>
+        <p class="metric-card__value" id="m-pendientes">—</p>
+        <p class="metric-card__sub">sin confirmar</p>
+      </div>
+      <div class="metric-card metric-card--danger">
+        <p class="metric-card__label">No asistirán</p>
+        <p class="metric-card__value" id="m-rechazados">—</p>
+        <p class="metric-card__sub">boletos liberados</p>
+      </div>
+    </section>
+
+    <!-- TOOLBAR -->
+    <div class="admin-toolbar">
+      <div class="admin-toolbar__actions">
+        <button class="btn-primary btn-icon" id="open-add-modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Agregar
+        </button>
+        <button class="btn-outline btn-icon" id="open-import-modal">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Importar CSV
+        </button>
+        <button class="btn-outline btn-icon" id="export-csv-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 14l5 5 5-5M12 19V3"/></svg>
+          Exportar
+        </button>
+        <button class="btn-outline btn-icon" id="export-view-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 9h8M8 13h5m-8 8l-4-4m0 0l4-4m-4 4h16"/></svg>
+          Links WhatsApp
+        </button>
+      </div>
+      <div class="admin-toolbar__search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input type="search" class="search-input" id="search-input" placeholder="Buscar por nombre o código…">
+      </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="table-wrap">
+      <div class="table-header">
+        <p class="table-header__title">Lista de invitados</p>
+        <span class="table-header__count" id="table-count">—</span>
+      </div>
+      <div class="table-scroll">
+        <table class="invitados-table">
+          <thead>
+            <tr>
+              <th>Invitado</th>
+              <th>Código</th>
+              <th class="t-center">Pases</th>
+              <th class="t-center">Estado</th>
+              <th class="t-center">Confirmó</th>
+              <th class="t-right">Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="invitados-tbody">
+            <tr class="loading-row"><td colspan="6">Cargando invitados…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ============================================================
+     MODAL: AGREGAR / EDITAR INVITADO
+     ============================================================ -->
+<div class="modal-overlay" id="guest-modal">
+  <div class="modal-box">
+    <h2 class="modal-title" id="guest-modal-title">Agregar invitado</h2>
+    <p class="modal-desc">El código se genera automáticamente al guardar.</p>
+    <form id="guest-form" novalidate>
+      <input type="hidden" id="guest-original-codigo" value="">
+      <div class="form-group">
+        <label for="guest-nombre">Nombre a mostrar</label>
+        <input type="text" id="guest-nombre" required placeholder="Familia García">
+      </div>
+      <div class="form-group">
+        <label for="guest-pases">Pases asignados</label>
+        <input type="number" id="guest-pases" min="1" max="20" value="1" required>
+      </div>
+      <div class="form-group">
+        <label for="guest-grupo">Grupo (opcional)</label>
+        <input type="text" id="guest-grupo" placeholder="Familia novia, Amigos, Trabajo…">
+      </div>
+      <div class="form-group" id="guest-codigo-group" style="display:none;">
+        <label for="guest-codigo">Código</label>
+        <input type="text" id="guest-codigo" readonly>
+      </div>
+      <p class="modal-error" id="guest-modal-error" role="alert"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn-outline" id="guest-cancel-btn">Cancelar</button>
+        <button type="submit" class="btn-primary" id="guest-submit-btn">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: IMPORTAR CSV
+     ============================================================ -->
+<div class="modal-overlay" id="import-modal">
+  <div class="modal-box">
+    <h2 class="modal-title">Importar desde CSV</h2>
+    <p class="modal-desc">
+      Sube un archivo con columnas <strong>nombre</strong> y <strong>pases</strong>. Puedes agregar una tercera columna <strong>grupo</strong>. El código se genera solo por cada fila.
+    </p>
+    <div class="csv-example">nombre,pases,grupo
+      Familia Garcia,4,Familia novia
+      Juan Perez,2,Amigos
+      Ana Lopez,1,Trabajo
+    </div>
+    <div class="form-group">
+      <label for="csv-file">Archivo .csv</label>
+      <input type="file" id="csv-file" accept=".csv">
+    </div>
+    <div class="csv-preview" id="csv-preview"></div>
+    <p class="modal-error" id="import-modal-error" role="alert"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn-outline" id="import-cancel-btn">Cancelar</button>
+      <button type="button" class="btn-primary" id="import-confirm-btn" disabled>Importar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: LINKS PARA WHATSAPP
+     ============================================================ -->
+<div class="modal-overlay" id="copy-modal">
+  <div class="modal-box modal-box--wide">
+    <h2 class="modal-title">Links para WhatsApp</h2>
+    <p class="modal-desc">Toca "Copiar mensaje" para llevar el link directamente al chat del invitado.</p>
+    <div class="copy-list" id="copy-list"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn-primary" id="copy-close-btn">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: CONFIRMAR BORRADO
+     ============================================================ -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal-box">
+    <h2 class="modal-title">¿Eliminar invitado?</h2>
+    <p class="modal-desc" id="delete-modal-desc"></p>
+    <p class="modal-warning">Esta acción no se puede deshacer. Si ya confirmó asistencia, también se borrará su respuesta.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-outline" id="delete-cancel-btn">Cancelar</button>
+      <button type="button" class="btn-danger" id="delete-confirm-btn">Sí, eliminar</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
