@@ -794,52 +794,11 @@ ul, ol {
   display: block;
 }
 
-/* =========================================================
-   GALERÍA (Swiper)
-   Fondo: borgoña oscuro
-   ========================================================= */
-.gallery {
-  background: var(--color-borgona-oscuro);
-  position: relative;
-}
-
-.gallery .section-title__eyebrow {
-  color: var(--color-oro-claro);
-}
-
-.gallery .section-title__heading {
-  color: var(--color-texto-claro);
-}
-
-.gallery .swiper {
-  width: 100%;
-  padding-bottom: var(--space-lg);
-}
-
-.gallery .swiper-slide {
-  border-radius: var(--radius-soft);
-  overflow: hidden;
-  aspect-ratio: 4/5;
-  border: 1px solid rgba(201, 169, 110, 0.3);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-}
-
-.gallery .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: sepia(0.08) contrast(1.02);
-}
-
-.gallery .swiper-pagination-bullet {
-  background: var(--color-oro-claro);
-  opacity: 0.4;
-}
-
-.gallery .swiper-pagination-bullet-active {
-  opacity: 1;
-  background: var(--color-oro-claro);
-}
+/* NOTA: el bloque completo de estilos de galería vive más abajo, en
+   "GALERÍA — Bokeh + coverflow + frame ornamental". Antes había un
+   bloque duplicado aquí mismo (misma sección, reglas parcialmente
+   repetidas/contradictorias) que quedó de una versión anterior y
+   generaba conflictos de cascada silenciosos. Se eliminó.
 
 /* =========================================================
    CEREMONIA
@@ -1204,6 +1163,61 @@ ul, ol {
   object-fit: contain;
 }
 
+.share-photos__qr-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.share-photos__qr-hint {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  font-family: var(--font-body);
+}
+
+/* Botón "Abrir álbum" — estilo fantasma con borde dorado */
+.share-photos__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-oro-claro);
+  border: 1px solid rgba(201, 169, 110, 0.55);
+  border-radius: var(--radius-soft);
+  padding: 0.85rem 1.75rem;
+  text-decoration: none;
+  transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  margin-bottom: var(--space-md);
+}
+
+.share-photos__btn svg {
+  flex-shrink: 0;
+  stroke: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.share-photos__btn:hover {
+  background: rgba(201, 169, 110, 0.12);
+  border-color: var(--color-oro-claro);
+  color: var(--color-texto-claro);
+}
+
+.share-photos__btn:hover svg {
+  transform: scale(1.1);
+}
+
+.share-photos__btn:active {
+  transform: scale(0.97);
+}
+
 /* =========================================================
    RSVP
    Fondo: marfil
@@ -1375,6 +1389,83 @@ ul, ol {
 }
 
 .attendance-toggle input[type="radio"]:focus-visible + label {
+  outline: 2px solid var(--color-borgona);
+  outline-offset: 2px;
+}
+
+/* Lista de integrantes — confirmación individual */
+.miembros-hint {
+  font-size: 0.72rem;
+  color: var(--color-taupe);
+  margin-top: -0.15rem;
+}
+
+.miembros-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.miembro-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--color-plata);
+  border-radius: var(--radius-soft);
+  cursor: pointer;
+  transition: border-color 0.3s var(--ease-elegant), background 0.3s var(--ease-elegant);
+}
+
+.miembro-item input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.miembro-item__check {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  border: 1px solid var(--color-plata);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s var(--ease-elegant);
+}
+
+.miembro-item__check::after {
+  content: '';
+  width: 9px;
+  height: 5px;
+  border-left: 2px solid var(--color-texto-claro);
+  border-bottom: 2px solid var(--color-texto-claro);
+  transform: rotate(-45deg) translateY(-1px);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-elegant);
+}
+
+.miembro-item__nombre {
+  font-size: 0.85rem;
+  color: var(--color-chocolate);
+}
+
+.miembro-item input[type="checkbox"]:checked ~ .miembro-item__check {
+  background: var(--color-borgona);
+  border-color: var(--color-borgona);
+}
+
+.miembro-item input[type="checkbox"]:checked ~ .miembro-item__check::after {
+  opacity: 1;
+}
+
+.miembro-item:has(input[type="checkbox"]:checked) {
+  border-color: var(--color-borgona);
+  background: var(--color-borgona-suave);
+}
+
+.miembro-item input[type="checkbox"]:focus-visible ~ .miembro-item__check {
   outline: 2px solid var(--color-borgona);
   outline-offset: 2px;
 }
@@ -2122,8 +2213,9 @@ ul, ol {
 }
 
 @media (min-width: 768px) {
-  .sponsors-grid--padres {
+  .sponsors-grid.sponsors-grid--padres {
     grid-template-columns: repeat(2, 1fr);
+    max-width: 360px;
   }
 }
 
@@ -2762,13 +2854,20 @@ ul, ol {
   padding-right: var(--space-md);
 }
 
-/* ---- Sponsor card: último impar centrado ---- */
-.sponsors-grid > .sponsor-card:last-child:nth-child(odd) {
-  grid-column: 1 / -1;
-  max-width: 180px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+/* ---- Sponsor card: último impar centrado ----
+   Solo aplica cuando .sponsors-grid tiene 2 columnas (< 768px).
+   A partir de 768px el grid pasa a 3 columnas (ver línea ~2189) y con
+   3 tarjetas ya caben perfecto en una sola fila — si esta regla se
+   aplicara ahí también, forzaría la 3ra tarjeta a su propia fila y
+   dejaría a las otras dos desalineadas a la izquierda. */
+@media (max-width: 767px) {
+  .sponsors-grid > .sponsor-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    max-width: 180px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
 }
 
 /* ---- Shimmer en sponsor-cards al hover ---- */
@@ -2871,16 +2970,6 @@ ul, ol {
   animation: none;
 }
 
-/* ---- Galería: glow en slide activa ---- */
-.gallery .swiper-slide-active {
-  border-color: rgba(201, 169, 110, 0.6) !important;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.4),
-    0 0 0 1px rgba(201, 169, 110, 0.3),
-    inset 0 0 0 1px rgba(201, 169, 110, 0.1) !important;
-  transition: border-color 0.4s ease, box-shadow 0.4s ease;
-}
-
 /* ---- Adults-only: chispa rotatoria ---- */
 .adults-only__spark {
   display: inline-block;
@@ -2914,25 +3003,28 @@ ul, ol {
 .wave-sep svg {
   display: block;
   width: 100%;
+  /* height mínimo garantiza que no haya gap de subpíxel en pantallas de alta densidad */
+  min-height: 1px;
 }
 
-/* Onda hacia oscuro: la sección anterior es clara */
+/* Onda hacia oscuro: la sección anterior es clara (marfil → borgoña) */
 .wave-sep--to-dark {
   background: var(--color-marfil);
-  margin-bottom: -2px;
+  /* margin negativo mayor para cubrir el gap de antialiasing en móvil */
+  margin-bottom: -3px;
 }
 
-/* Onda hacia claro: la sección anterior es oscura */
+/* Onda hacia claro: la sección anterior es oscura (borgoña → marfil) */
 .wave-sep--to-light {
   background: var(--color-borgona-oscuro);
-  margin-bottom: -2px;
+  margin-bottom: -3px;
 }
 
 /* Onda interna entre secciones del mismo tono oscuro */
 .wave-sep--inner-dark {
   background: var(--color-borgona-oscuro);
   pointer-events: none;
-  margin-bottom: -2px;
+  margin-bottom: -3px;
 }
 
 /* Versión espejada */
@@ -3120,100 +3212,138 @@ ul, ol {
 }
 
 /* =========================================================
-   GALERÍA — Bokeh + coverflow + frame ornamental
+   GALERÍA — carrusel propio (sin librerías externas)
+   Track flex + transform: translateX(%), todo en unidades
+   relativas para que no dependa de medir px con JS y no se
+   rompa por reflow/fuentes/imágenes cargando en mobile.
    ========================================================= */
 
-/* Override sección para que no colisione con wave */
 .gallery {
   background: var(--color-borgona-oscuro);
   position: relative;
   padding-top: var(--space-lg);
 }
 
-/* Bokeh circles flotantes */
-.gallery__bokeh {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
+.gallery .section-title__eyebrow {
+  color: var(--color-oro-claro);
 }
 
-.bokeh {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(201, 169, 110, 0.07);
-  filter: blur(18px);
-  animation: bokeh-float ease-in-out infinite;
+.gallery .section-title__heading {
+  color: var(--color-texto-claro);
 }
 
-.bokeh--1 { width: 140px; height: 140px; top: 5%;  left: -20%; animation-duration: 14s; animation-delay: 0s;   }
-.bokeh--2 { width: 90px;  height: 90px;  top: 30%; right: -10%; animation-duration: 18s; animation-delay: 2s;  }
-.bokeh--3 { width: 200px; height: 200px; top: 55%; left: 20%;  animation-duration: 20s; animation-delay: 5s;   }
-.bokeh--4 { width: 70px;  height: 70px;  top: 10%; right: 30%; animation-duration: 12s; animation-delay: 1s;   }
-.bokeh--5 { width: 120px; height: 120px; top: 75%; right: -5%; animation-duration: 16s; animation-delay: 7s;   }
-
-@keyframes bokeh-float {
-  0%, 100% { transform: translateY(0)   scale(1);    opacity: 0.5; }
-  33%       { transform: translateY(-20px) scale(1.08); opacity: 0.8; }
-  66%       { transform: translateY(10px)  scale(0.95); opacity: 0.4; }
-}
-
-/* Marco ornamental de esquinas sobre el carrusel */
-.gallery__frame {
+/* ---- Contenedor del carrusel ---- */
+.gallery-carousel {
   position: relative;
-  z-index: 2;
-  margin: 0 var(--space-sm) var(--space-sm);
-  pointer-events: none;
-}
-
-.gallery__frame-corner {
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  z-index: 3;
-}
-
-.gallery__frame-corner--tl { top: 0;    left: 0;   border-top: 1px solid rgba(201,169,110,0.5); border-left:  1px solid rgba(201,169,110,0.5); }
-.gallery__frame-corner--tr { top: 0;    right: 0;  border-top: 1px solid rgba(201,169,110,0.5); border-right: 1px solid rgba(201,169,110,0.5); }
-.gallery__frame-corner--bl { bottom: 0; left: 0;   border-bottom: 1px solid rgba(201,169,110,0.5); border-left:  1px solid rgba(201,169,110,0.5); }
-.gallery__frame-corner--br { bottom: 0; right: 0;  border-bottom: 1px solid rgba(201,169,110,0.5); border-right: 1px solid rgba(201,169,110,0.5); }
-
-/* Slides con efecto coverflow — sombras laterales */
-.gallery__swiper {
   width: 100%;
-  padding-bottom: var(--space-lg);
-  position: relative;
-  z-index: 2;
+  max-width: 480px;
+  margin: 0 auto;
+  outline: none;
 }
 
-.gallery .swiper-slide {
-  border-radius: var(--radius-soft);
-  overflow: hidden;
+/* El viewport recorta lo que se sale; el aspect-ratio vive aquí,
+   fuera del track, así que nunca depende de que los hijos carguen
+   para tener alto — se reserva el espacio desde el primer render. */
+.gallery-carousel__viewport {
+  width: 100%;
   aspect-ratio: 4/5;
-  border: 1px solid rgba(201, 169, 110, 0.2);
-  transition: border-color 0.4s ease;
-}
-
-.gallery .swiper-slide-active {
-  border-color: rgba(201, 169, 110, 0.55) !important;
+  overflow: hidden;
+  border-radius: 3px;
+  position: relative;
   box-shadow:
-    0 12px 40px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(201, 169, 110, 0.25) !important;
+    0 0 0 1px rgba(201,169,110,0.3),
+    0 20px 50px rgba(0,0,0,0.55);
 }
 
-.gallery .swiper-slide img {
+/* El track es un flex row normal (sin position:absolute) que se
+   mueve con transform. Cada slide vive en el flujo normal del
+   documento, así que el alto siempre se calcula correctamente. */
+.gallery-carousel__track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.gallery-carousel__slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.gallery-carousel__slide img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: sepia(0.08) contrast(1.02);
-  transition: transform 0.6s var(--ease-elegant);
+  display: block;
+  filter: sepia(0.06) contrast(1.03);
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
-.gallery .swiper-slide-active img {
-  transform: scale(1.02);
+/* ---- Flechas de navegación ---- */
+.gallery-carousel__btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(62,15,28,0.6);
+  border: 1px solid rgba(201,169,110,0.35);
+  color: rgba(232,201,138,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.25s, border-color 0.25s, transform 0.25s;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Pie de galería — frase script */
+.gallery-carousel__btn:hover {
+  background: rgba(94,26,46,0.8);
+  border-color: rgba(201,169,110,0.7);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.gallery-carousel__btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.gallery-carousel__btn--prev { left: 12px; }
+.gallery-carousel__btn--next { right: 12px; }
+
+/* ---- Puntos de paginación ---- */
+.gallery-carousel__dots {
+  position: relative;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.gallery-carousel__dot {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  border: none;
+  padding: 0;
+  background: rgba(201,169,110,0.35);
+  cursor: pointer;
+  transition: background 0.35s ease, width 0.35s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.gallery-carousel__dot.is-active {
+  background: var(--color-oro-claro);
+  width: 40px;
+}
+
+/* ---- Pie de galería — frase script ---- */
 .gallery__caption {
   text-align: center;
   font-size: 1.5rem;
@@ -3222,25 +3352,4 @@ ul, ol {
   letter-spacing: 0.02em;
   position: relative;
   z-index: 2;
-}
-
-/* Paginación personalizada */
-.gallery__pagination {
-  position: relative;
-  margin-top: 0.8rem;
-}
-
-.gallery .swiper-pagination-bullet {
-  background: var(--color-oro-claro);
-  opacity: 0.3;
-  width: 6px;
-  height: 6px;
-  transition: all 0.3s ease;
-}
-
-.gallery .swiper-pagination-bullet-active {
-  opacity: 1;
-  background: var(--color-oro-claro);
-  width: 18px;
-  border-radius: 3px;
 }

@@ -1,10 +1,19 @@
 <!DOCTYPE html>
 <html lang="es-MX">
+  
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Panel — Ezequiel &amp; Karla</title>
+<title>Panel — Karla &amp; Ezequiel</title>
 <meta name="robots" content="noindex, nofollow">
+ 
+<!-- Sin og: ni twitter: — el admin nunca se comparte -->
+ 
+<!-- Favicon -->
+<link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="../assets/icons/favicon-192.png">
+ 
 <link rel="stylesheet" href="admin.css">
 </head>
 <body>
@@ -55,6 +64,10 @@
     </div>
     <div class="admin-header__actions">
       <span class="admin-header__date">11 · Oct · 2026</span>
+      <a class="btn-header-nav" href="mesas/mesas.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Mesas
+      </a>
       <button class="btn-logout" id="logout-btn">Cerrar sesión</button>
     </div>
   </header>
@@ -66,7 +79,7 @@
       <div class="metric-card">
         <p class="metric-card__label">Lugares totales</p>
         <p class="metric-card__value" id="m-total">—</p>
-        <p class="metric-card__sub">boletos asignados</p>
+        <p class="metric-card__sub">integrantes registrados</p>
       </div>
       <div class="metric-card metric-card--success">
         <p class="metric-card__label">Confirmados</p>
@@ -84,8 +97,45 @@
       <div class="metric-card metric-card--danger">
         <p class="metric-card__label">No asistirán</p>
         <p class="metric-card__value" id="m-rechazados">—</p>
-        <p class="metric-card__sub">boletos liberados</p>
+        <p class="metric-card__sub">lugares liberados</p>
       </div>
+    </section>
+
+    <!-- ============================================================
+         WIDGET: ÁLBUM DE RECUERDOS
+         ============================================================ -->
+    <section class="recuerdos-widget" id="recuerdos-widget">
+      <div class="recuerdos-widget__header">
+        <div class="recuerdos-widget__title-group">
+          <p class="recuerdos-widget__title">Álbum de Recuerdos</p>
+          <span class="recuerdos-widget__badge" id="rw-total">cargando…</span>
+        </div>
+        <div class="recuerdos-widget__actions">
+          <a class="btn-outline btn-icon" href="album/album.html">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Ver álbum completo
+          </a>
+        </div>
+      </div>
+
+      <div class="rw-stats">
+        <div class="rw-stat">
+          <p class="rw-stat__val" id="rw-fotos">—</p>
+          <p class="rw-stat__lbl">Fotos</p>
+        </div>
+        <div class="rw-stat">
+          <p class="rw-stat__val" id="rw-videos">—</p>
+          <p class="rw-stat__lbl">Videos</p>
+        </div>
+        <div class="rw-stat">
+          <p class="rw-stat__val" id="rw-ocultas">—</p>
+          <p class="rw-stat__lbl">Ocultas</p>
+        </div>
+      </div>
+
+      <div class="rw-grid" id="rw-grid"></div>
+      <p class="rw-empty" id="rw-empty" hidden>Aún no hay fotos en el álbum.</p>
+      <p class="rw-loading" id="rw-loading">Cargando álbum…</p>
     </section>
 
     <!-- TOOLBAR -->
@@ -112,7 +162,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
         </svg>
-        <input type="search" class="search-input" id="search-input" placeholder="Buscar por nombre o código…">
+        <input type="search" class="search-input" id="search-input" placeholder="Buscar por familia, integrante o código…">
       </div>
     </div>
 
@@ -126,16 +176,17 @@
         <table class="invitados-table">
           <thead>
             <tr>
-              <th>Invitado</th>
+              <th></th>
+              <th>Familia</th>
               <th>Código</th>
-              <th class="t-center">Pases</th>
+              <th class="t-center">Integrantes</th>
               <th class="t-center">Estado</th>
               <th class="t-center">Confirmó</th>
               <th class="t-right">Acciones</th>
             </tr>
           </thead>
           <tbody id="invitados-tbody">
-            <tr class="loading-row"><td colspan="6">Cargando invitados…</td></tr>
+            <tr class="loading-row"><td colspan="7">Cargando invitados…</td></tr>
           </tbody>
         </table>
       </div>
@@ -145,21 +196,17 @@
 </div>
 
 <!-- ============================================================
-     MODAL: AGREGAR / EDITAR INVITADO
+     MODAL: AGREGAR / EDITAR FAMILIA
      ============================================================ -->
 <div class="modal-overlay" id="guest-modal">
   <div class="modal-box">
-    <h2 class="modal-title" id="guest-modal-title">Agregar invitado</h2>
-    <p class="modal-desc">El código se genera automáticamente al guardar.</p>
+    <h2 class="modal-title" id="guest-modal-title">Agregar familia</h2>
+    <p class="modal-desc">El código se genera automáticamente al guardar. Agrega a cada persona que va a asistir.</p>
     <form id="guest-form" novalidate>
       <input type="hidden" id="guest-original-codigo" value="">
       <div class="form-group">
-        <label for="guest-nombre">Nombre a mostrar</label>
+        <label for="guest-nombre">Alias de la familia</label>
         <input type="text" id="guest-nombre" required placeholder="Familia García">
-      </div>
-      <div class="form-group">
-        <label for="guest-pases">Pases asignados</label>
-        <input type="number" id="guest-pases" min="1" max="20" value="1" required>
       </div>
       <div class="form-group">
         <label for="guest-grupo">Grupo (opcional)</label>
@@ -168,6 +215,11 @@
       <div class="form-group" id="guest-codigo-group" style="display:none;">
         <label for="guest-codigo">Código</label>
         <input type="text" id="guest-codigo" readonly>
+      </div>
+      <div class="form-group">
+        <label>Integrantes</label>
+        <div id="miembros-inputs"></div>
+        <button type="button" class="btn-add-miembro" id="add-miembro-btn">+ Agregar integrante</button>
       </div>
       <p class="modal-error" id="guest-modal-error" role="alert"></p>
       <div class="modal-actions">
@@ -185,12 +237,12 @@
   <div class="modal-box">
     <h2 class="modal-title">Importar desde CSV</h2>
     <p class="modal-desc">
-      Sube un archivo con columnas <strong>nombre</strong> y <strong>pases</strong>. Puedes agregar una tercera columna <strong>grupo</strong>. El código se genera solo por cada fila.
+      Sube un archivo con columnas <strong>familia</strong> e <strong>integrante</strong> (una fila por persona). Puedes agregar una tercera columna <strong>grupo</strong>. El código se genera una sola vez por familia.
     </p>
-    <div class="csv-example">nombre,pases,grupo
-      Familia Garcia,4,Familia novia
-      Juan Perez,2,Amigos
-      Ana Lopez,1,Trabajo
+    <div class="csv-example">familia,integrante,grupo
+      Familia Garcia,Mario Garcia,Familia novia
+      Familia Garcia,Julia Garcia,Familia novia
+      Juan Perez,Juan Perez,Amigos
     </div>
     <div class="form-group">
       <label for="csv-file">Archivo .csv</label>
@@ -224,9 +276,9 @@
      ============================================================ -->
 <div class="modal-overlay" id="delete-modal">
   <div class="modal-box">
-    <h2 class="modal-title">¿Eliminar invitado?</h2>
+    <h2 class="modal-title">¿Eliminar familia?</h2>
     <p class="modal-desc" id="delete-modal-desc"></p>
-    <p class="modal-warning">Esta acción no se puede deshacer. Si ya confirmó asistencia, también se borrará su respuesta.</p>
+    <p class="modal-warning">Esta acción no se puede deshacer. Se borrarán también todos sus integrantes y sus respuestas de RSVP.</p>
     <div class="modal-actions">
       <button type="button" class="btn-outline" id="delete-cancel-btn">Cancelar</button>
       <button type="button" class="btn-danger" id="delete-confirm-btn">Sí, eliminar</button>

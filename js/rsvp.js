@@ -1,6 +1,6 @@
 /* =========================================================
    RSVP PERSONALIZADO — Lectura de código, saludo dinámico,
-   límite de pases y envío a Supabase (upsert por código)
+   confirmación individual por integrante y envío a Supabase
    ========================================================= */
 (function () {
 
@@ -12,9 +12,9 @@
   const SUPABASE_URL = 'https://nvkuqndqlfdxkvuhlwcy.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_8SX6IrG_3JGb-vIv3_ooXw_fMnrCRsy';
   const TABLE_INVITADOS = 'invitados';
-  const TABLE_RSVP = 'rsvp';
+  const TABLE_MIEMBROS = 'miembros';
 
-  // --- Referencias a los 4 bloques de la sección RSVP ---
+  // --- Referencias a los bloques de la sección RSVP ---
   const loadingEl   = document.querySelector('.rsvp-loading');
   const notFoundEl  = document.querySelector('.rsvp-not-found');
   const greetingEl  = document.querySelector('.rsvp-greeting');
@@ -22,15 +22,16 @@
 
   if (!form) return; // si la sección RSVP no existe en esta página, no hacer nada
 
-  const nombreEl    = document.querySelector('[data-rsvp-nombre]');
-  const pasesEl     = document.querySelector('[data-rsvp-pases]');
-  const numSelectEl = document.querySelector('#num_personas');
-  const errorEl     = document.querySelector('.rsvp-error');
-  const successEl   = document.querySelector('.rsvp-success');
-  const submitBtn   = form.querySelector('.rsvp-submit');
+  const nombreEl     = document.querySelector('[data-rsvp-nombre]');
+  const pasesEl      = document.querySelector('[data-rsvp-pases]');
+  const miembrosList = document.querySelector('#miembros-list');
+  const errorEl      = document.querySelector('.rsvp-error');
+  const successEl    = document.querySelector('.rsvp-success');
+  const submitBtn    = form.querySelector('.rsvp-submit');
 
-  // Guarda el registro del invitado ya validado, para usarlo al enviar
+  // Guarda el registro del invitado + sus miembros ya validados
   let invitadoActual = null;
+  let miembrosActuales = [];
 
   /* ---------------------------------------------------------
      Helpers de estado visual
@@ -111,7 +112,7 @@
   }
 
   /* ---------------------------------------------------------
-     PASO 2 — Buscar al invitado en Supabase por su código
+     PASO 2 — Buscar al invitado y a sus miembros en Supabase
      --------------------------------------------------------- */
   async function buscarInvitado(codigo) {
     // Usamos ilike (insensible a mayúsculas/minúsculas) en vez de eq,
@@ -135,75 +136,104 @@
     return rows.length > 0 ? rows[0] : null;
   }
 
-  /* ---------------------------------------------------------
-     PASO 3 — Pintar el saludo y armar el selector de personas
-     limitado al número de pases_asignados del invitado
-     --------------------------------------------------------- */
-  function pintarSaludo(invitado) {
-    nombreEl.textContent = invitado.nombre_mostrar;
+  async function buscarMiembros(codigo) {
+    const url = `${SUPABASE_URL}/rest/v1/${TABLE_MIEMBROS}?codigo=eq.${encodeURIComponent(codigo)}&select=id,nombre,asiste,orden&order=orden.asc`;
 
-    const pases = invitado.pases_asignados;
-    pasesEl.textContent = pases === 1
-      ? 'Tienes 1 lugar reservado'
-      : `Tienen ${pases} lugares reservados`;
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+      },
+    });
 
-    // Reconstruir el <select> de 1 hasta el máximo de pases asignados
-    numSelectEl.innerHTML = '';
-    for (let i = 1; i <= pases; i++) {
-      const option = document.createElement('option');
-      option.value = String(i);
-      option.textContent = i === 1 ? '1 persona' : `${i} personas`;
-      numSelectEl.appendChild(option);
+    if (!response.ok) {
+      throw new Error('No se pudo cargar la lista de integrantes');
     }
-    // Por defecto, selecciona el máximo de pases (lo más común: confirman todos)
-    numSelectEl.value = String(pases);
+
+    return response.json();
   }
 
   /* ---------------------------------------------------------
-     PASO 4 — Mostrar/ocultar el selector de personas según
-     si la familia dijo que sí va a asistir o no
+     PASO 3 — Pintar el saludo y la lista de integrantes
+     Cada integrante tiene su propio checkbox (marcado por
+     defecto = asistirá, a menos que ya haya respondido antes)
      --------------------------------------------------------- */
-  const numPersonasGroup = document.querySelector('#num-personas-group');
-  form.addEventListener('change', (e) => {
-    if (e.target.name === 'asiste') {
-      const asiste = e.target.value === 'si';
-      numPersonasGroup.style.display = asiste ? '' : 'none';
-    }
-  });
+  function pintarSaludo(invitado, miembros) {
+    nombreEl.textContent = invitado.nombre_mostrar;
+
+    const total = miembros.length;
+    pasesEl.textContent = total === 1
+      ? 'Tienen 1 lugar reservado'
+      : `Tienen ${total} lugares reservados`;
+
+    miembrosList.innerHTML = miembros.map((m) => {
+      // Si ya había respondido antes, respeta su respuesta anterior.
+      // Si nunca ha respondido (asiste === null), lo dejamos marcado
+      // por defecto (lo más común es que confirmen a todos).
+      const checked = m.asiste === false ? '' : 'checked';
+      return `
+        <label class="miembro-item">
+          <input type="checkbox" name="miembro" value="${m.id}" ${checked}>
+          <span class="miembro-item__check" aria-hidden="true"></span>
+          <span class="miembro-item__nombre">${escapeHtml(m.nombre)}</span>
+        </label>
+      `;
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str ?? '';
+    return div.innerHTML;
+  }
 
   /* ---------------------------------------------------------
      Validación antes de enviar
      --------------------------------------------------------- */
-  function validate(data) {
-    if (!data.asiste) {
-      return 'Indícanos si podrás acompañarnos.';
-    }
-    if (data.asiste === 'si' && (!data.num_personas || Number(data.num_personas) < 1)) {
-      return 'Indícanos cuántas personas asistirán.';
-    }
-    if (data.asiste === 'si' && invitadoActual && Number(data.num_personas) > invitadoActual.pases_asignados) {
-      return `Solo cuentan con ${invitadoActual.pases_asignados} lugares asignados.`;
+  function validate() {
+    if (!miembrosActuales || miembrosActuales.length === 0) {
+      return 'No encontramos integrantes para esta invitación.';
     }
     return null;
   }
 
   /* ---------------------------------------------------------
-     PASO 5 — Enviar la confirmación a la tabla rsvp
-     Usamos upsert (Prefer: resolution=merge-duplicates) para que,
-     si la familia confirma dos veces, se actualice su misma fila
-     en vez de crear un duplicado — la tabla rsvp tiene
-     codigo UNIQUE en el setup.sql, así que esto encaja directo.
+     PASO 4 — Enviar la confirmación
+     1) Marca asiste=true en los miembros con check
+     2) Marca asiste=false en los miembros sin check
+     3) Deja constancia en "rsvp" (para las métricas del admin)
      --------------------------------------------------------- */
-  async function enviarRSVP(payload) {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_RSVP}`, {
-      method: 'POST',
+  async function patchMiembros(ids, asiste) {
+    if (ids.length === 0) return;
+    const filtro = ids.map(encodeURIComponent).join(',');
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_MIEMBROS}?id=in.(${filtro})`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        Prefer: 'resolution=merge-duplicates,return=minimal',
+        Prefer: 'return=minimal',
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify({ asiste }),
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(errText || 'Error al guardar la confirmación');
+    }
+  }
+
+  async function marcarRespondido(codigo) {
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/${TABLE_INVITADOS}?codigo=eq.${encodeURIComponent(codigo)}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        Prefer: 'return=minimal',
+      },
+      body: JSON.stringify({ respondido_at: new Date().toISOString() }),
     });
 
     if (!response.ok) {
@@ -217,33 +247,37 @@
     clearError();
 
     const formData = new FormData(form);
-    const data = Object.fromEntries(formData.entries());
 
     // Honeypot: si este campo oculto viene lleno, es un bot — abortamos en silencio
-    if (data.website) {
+    if (formData.get('website')) {
       return;
     }
 
-    const validationError = validate(data);
+    const validationError = validate();
     if (validationError) {
       showError(validationError);
       return;
     }
 
-    const payload = {
-      codigo: invitadoActual.codigo,
-      asiste: data.asiste === 'si',
-      num_personas_confirmadas: data.asiste === 'si' ? Number(data.num_personas) : 0,
-    };
+    const idsMarcados = formData.getAll('miembro');
+    const idsSet = new Set(idsMarcados);
+    const idsNoMarcados = miembrosActuales
+      .map((m) => m.id)
+      .filter((id) => !idsSet.has(id));
 
     setLoading(true);
 
     try {
-      await enviarRSVP(payload);
+      await Promise.all([
+        patchMiembros(idsMarcados, true),
+        patchMiembros(idsNoMarcados, false),
+      ]);
+      await marcarRespondido(invitadoActual.codigo);
+
       form.classList.remove('is-visible');
       greetingEl.classList.remove('is-visible');
       successEl.classList.add('is-visible');
-      if (data.asiste === 'si') launchConfetti();
+      if (idsMarcados.length > 0) launchConfetti();
     } catch (err) {
       console.error('RSVP error:', err);
       showError('Hubo un problema al enviar tu confirmación. Intenta de nuevo.');
@@ -273,8 +307,11 @@
         return;
       }
 
+      const miembros = await buscarMiembros(invitado.codigo);
+
       invitadoActual = invitado;
-      pintarSaludo(invitado);
+      miembrosActuales = miembros;
+      pintarSaludo(invitado, miembros);
 
       showOnly(null); // oculta loading y not-found
       greetingEl.classList.add('is-visible');

@@ -27,6 +27,10 @@
   --taupe:    #7A6050;
   --plata:    #C8C0B8;
 
+  /* Alias usados por el widget de recuerdos y la vista mobile de la tabla */
+  --borde: rgba(201,169,110,0.18);
+  --texto: var(--chocolate);
+
   /* Estados */
   --success-bg:   #E8F5EE;
   --success-text: #0A5C38;
@@ -378,6 +382,32 @@ input, select, textarea { font-family: inherit; }
   color: var(--oro-claro);
   border-color: rgba(201,169,110,0.45);
 }
+
+/* Link de navegación en el header (ej. "Mesas") */
+.btn-header-nav {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 0.45rem 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: rgba(201,169,110,0.12);
+  color: var(--oro-claro);
+  border: 1px solid rgba(201,169,110,0.35);
+  transition: all 0.2s var(--ease);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.btn-header-nav:hover {
+  background: rgba(201,169,110,0.22);
+  border-color: rgba(201,169,110,0.55);
+}
+
+.btn-header-nav svg { width: 13px; height: 13px; }
 
 /* =========================================================
    CONTENIDO PRINCIPAL
@@ -755,6 +785,144 @@ input, select, textarea { font-family: inherit; }
 }
 
 /* =========================================================
+   FILA EXPANDIBLE — chevron + integrantes de la familia
+   ========================================================= */
+.expand-cell {
+  width: 34px;
+  padding-left: 1.2rem !important;
+  padding-right: 0 !important;
+}
+
+.expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--taupe);
+  transition: background 0.15s var(--ease), color 0.15s var(--ease);
+}
+
+.expand-btn:hover { background: var(--crema); color: var(--borgona); }
+
+.expand-btn svg {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s var(--ease);
+}
+
+.familia-row.is-expanded .expand-btn svg { transform: rotate(90deg); }
+
+.miembros-row td {
+  background: var(--marfil);
+  padding: 0.85rem 1.2rem !important;
+  border-bottom: 1px solid var(--crema);
+}
+
+.miembros-row.is-hidden { display: none; }
+
+.miembros-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.miembro-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.74rem;
+  background: var(--blanco);
+  border: 1px solid var(--crema);
+  border-radius: 20px;
+  padding: 0.3rem 0.7rem 0.3rem 0.55rem;
+  color: var(--chocolate);
+}
+
+.miembro-chip__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.miembro-chip__dot--confirmado { background: var(--success-text); }
+.miembro-chip__dot--no-asiste  { background: var(--danger-text); }
+.miembro-chip__dot--pendiente  { background: var(--warning-text); }
+
+/* =========================================================
+   MODAL — integrantes dinámicos (agregar / editar familia)
+   ========================================================= */
+#miembros-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.miembro-input-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.miembro-nombre-input {
+  flex: 1;
+  font-size: 0.85rem;
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--plata);
+  border-radius: var(--radius-sm);
+  background: var(--blanco);
+  color: var(--chocolate);
+  transition: border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.miembro-nombre-input:focus {
+  outline: none;
+  border-color: var(--borgona);
+  box-shadow: 0 0 0 3px rgba(94,26,46,0.08);
+}
+
+.miembro-remove-btn {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: 1px solid transparent;
+  color: var(--taupe);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.15s var(--ease);
+}
+
+.miembro-remove-btn:hover {
+  background: var(--danger-bg);
+  border-color: rgba(139,26,46,0.2);
+  color: var(--danger-text);
+}
+
+.btn-add-miembro {
+  align-self: flex-start;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  padding: 0.45rem 0.85rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  background: var(--blanco);
+  color: var(--borgona);
+  border: 1px dashed var(--borgona-borde);
+  transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.btn-add-miembro:hover { background: var(--borgona-suave); border-color: var(--borgona); border-style: solid; }
+
+/* =========================================================
    MODALES
    ========================================================= */
 .modal-overlay {
@@ -937,3 +1105,294 @@ input, select, textarea { font-family: inherit; }
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover { background: rgba(94,26,46,0.4); }
+/* =========================================================
+   WIDGET ÁLBUM DE RECUERDOS
+   ========================================================= */
+.recuerdos-widget {
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.recuerdos-widget__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.recuerdos-widget__title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.recuerdos-widget__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--texto);
+  letter-spacing: 0.01em;
+}
+
+.recuerdos-widget__badge {
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: var(--borgona-suave);
+  color: var(--borgona);
+  border-radius: 20px;
+  padding: 0.2rem 0.65rem;
+}
+
+.recuerdos-widget__actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Mini stats */
+.rw-stats {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--borde);
+}
+
+.rw-stat {
+  text-align: center;
+  min-width: 48px;
+}
+
+.rw-stat__val {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--borgona);
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.rw-stat__lbl {
+  font-size: 0.68rem;
+  color: var(--taupe);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* Grid de fotos */
+.rw-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.rw-thumb {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--crema);
+  cursor: pointer;
+  group: true;
+}
+
+.rw-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: filter 0.2s, transform 0.3s;
+}
+
+.rw-thumb:hover img { transform: scale(1.05); }
+
+.rw-thumb--hidden img { filter: grayscale(1) opacity(0.45); }
+
+/* Overlay con botón ocultar/mostrar */
+.rw-thumb__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(62,15,28,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.rw-thumb:hover .rw-thumb__overlay { opacity: 1; }
+
+.rw-thumb--hidden .rw-thumb__overlay {
+  opacity: 1;
+  background: rgba(0,0,0,0.35);
+}
+
+.rw-thumb__toggle {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #fff;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.rw-thumb__toggle:hover { background: rgba(0,0,0,0.75); }
+
+/* Ícono video */
+.rw-thumb__video-badge {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  background: rgba(62,15,28,0.7);
+  color: #E8C98A;
+  font-size: 0.6rem;
+  font-weight: 600;
+  padding: 2px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+.rw-loading {
+  font-size: 0.78rem;
+  color: var(--taupe);
+  text-align: center;
+  padding: 1rem 0 0;
+}
+
+.rw-empty {
+  font-size: 0.82rem;
+  color: var(--taupe);
+  text-align: center;
+  padding: 1.5rem 0;
+  font-style: italic;
+}
+
+/* =========================================================
+   TABLA → TARJETAS EN MOBILE
+   ========================================================= */
+@media (max-width: 639px) {
+
+  /* Ocultar la tabla convencional */
+  .table-scroll { overflow: visible; }
+
+  .invitados-table { min-width: unset; width: 100%; }
+
+  .invitados-table thead { display: none; }
+
+  .invitados-table tbody tr {
+    display: flex;
+    flex-direction: column;
+    background: var(--blanco);
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .invitados-table tbody tr:hover { background: var(--blanco); }
+
+  .invitados-table td {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: none;
+    font-size: 0.82rem;
+  }
+
+  .invitados-table td:last-child  { padding-right: 0; }
+
+  /* Etiqueta de columna antes de cada celda */
+  .invitados-table td::before {
+    content: attr(data-label);
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--taupe);
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+  }
+
+  /* El chevron de expandir no aplica en mobile: los integrantes
+     siempre se muestran, así que ocultamos esta celda */
+  .invitados-table .expand-cell { display: none; }
+
+  /* Celda de nombre — más prominente, funciona como encabezado de tarjeta */
+  .invitados-table .name-cell {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--texto);
+    border-bottom: 1px solid var(--borde);
+    padding-bottom: 0.6rem;
+    padding-left: 0;
+    margin-bottom: 0.25rem;
+    justify-content: flex-start;
+    gap: 0.5rem;
+  }
+
+  .invitados-table .name-cell::before { display: none; }
+
+  /* Acciones al final, centradas */
+  .invitados-table td:last-child {
+    justify-content: flex-end;
+    padding-top: 0.5rem;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--borde);
+  }
+
+  .invitados-table td:last-child::before { display: none; }
+
+  /* Integrantes: en mobile siempre visibles como parte de la tarjeta,
+     ya que el chevron de expandir está oculto en esta vista */
+  .miembros-row.is-hidden { display: flex; }
+
+  .miembros-row td {
+    background: none;
+    padding: 0.5rem 0 0 !important;
+    border-bottom: none;
+    display: block;
+  }
+
+  .miembros-row td::before { display: none; }
+
+  /* Ajustar toolbar para mobile */
+  .admin-toolbar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .admin-toolbar__actions {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .admin-toolbar__search { width: 100%; }
+
+  .search-input { width: 100%; }
+
+  /* Métricas en 2x2 en mobile */
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Widget: grid más pequeño en mobile */
+  .rw-grid {
+    grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+    gap: 6px;
+  }
+
+  .recuerdos-widget {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mesas — Karla &amp; Ezequiel</title>
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Favicon -->
+<link rel="icon" href="../../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="../../assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="../../assets/icons/favicon-192.png">
+
+<link rel="stylesheet" href="../admin.css">
+<link rel="stylesheet" href="mesas.css">
+</head>
+<body>
+
+<div class="admin-app is-visible">
+
+  <!-- HEADER -->
+  <header class="admin-header">
+    <div class="admin-header__brand">
+      <div class="admin-header__seal">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/>
+        </svg>
+      </div>
+      <div>
+        <p class="admin-header__eyebrow">Plano de mesas</p>
+        <p class="admin-header__title">Ezequiel &amp; Karla</p>
+      </div>
+    </div>
+    <div class="admin-header__actions">
+      <a class="btn-header-nav" href="../index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Invitados
+      </a>
+      <button class="btn-logout" id="logout-btn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- TOOLBAR -->
+    <div class="admin-toolbar">
+      <div class="admin-toolbar__actions">
+        <button class="btn-primary btn-icon" id="open-add-mesa">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+          Agregar mesa
+        </button>
+        <button class="btn-outline btn-icon" id="export-excel-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 14l5 5 5-5M12 19V3"/></svg>
+          Exportar Excel
+        </button>
+        <button class="btn-outline btn-icon" id="print-plano-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+          Imprimir plano
+        </button>
+        <button class="btn-outline btn-icon" id="print-lista-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+          Imprimir asignación
+        </button>
+      </div>
+    </div>
+
+    <!-- LAYOUT: SIN SENTAR + MESAS -->
+    <div class="mesas-layout">
+
+      <!-- PANEL: SIN SENTAR -->
+      <aside class="sinsentar-panel">
+        <div class="sinsentar-panel__header">
+          <p class="sinsentar-panel__title">Sin sentar</p>
+          <span class="table-header__count" id="sinsentar-count">—</span>
+        </div>
+        <p class="sinsentar-hint" id="sinsentar-hint">Ahora toca un asiento vacío para sentar a esa persona (o arrástrala directo a la mesa).</p>
+        <div class="sinsentar-list" id="sinsentar-list">
+          <p class="sinsentar-empty">Cargando invitados…</p>
+        </div>
+      </aside>
+
+      <!-- MESAS: plano libre -->
+      <section>
+        <div class="mesas-plano-wrap">
+          <div class="mesas-canvas-wrap" id="mesas-canvas-wrap">
+            <div class="mesas-canvas" id="mesas-grid">
+              <p class="mesas-loading">Cargando mesas…</p>
+            </div>
+          </div>
+          <div class="mesas-zoom mesas-zoom--overlay">
+            <button type="button" class="icon-btn" id="zoom-out-btn" title="Alejar">−</button>
+            <span class="mesas-zoom__nivel" id="zoom-level">100%</span>
+            <button type="button" class="icon-btn" id="zoom-in-btn" title="Acercar">＋</button>
+            <button type="button" class="btn-outline" id="zoom-reset-btn">Restablecer</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+</div>
+
+<!-- Contenedor usado solo al imprimir (ver mesas.css @media print) -->
+<div id="print-plano"></div>
+
+<!-- ============================================================
+     MODAL: AGREGAR / EDITAR MESA
+     ============================================================ -->
+<div class="modal-overlay" id="mesa-modal">
+  <div class="modal-box">
+    <h2 class="modal-title" id="mesa-modal-title">Agregar mesa</h2>
+    <p class="modal-desc">Dale un nombre y define cuántos lugares tiene.</p>
+    <form id="mesa-form" novalidate>
+      <input type="hidden" id="mesa-original-id" value="">
+      <div class="form-group">
+        <label for="mesa-nombre">Nombre de la mesa</label>
+        <input type="text" id="mesa-nombre" required placeholder="Mesa 1, Mesa de honor…">
+      </div>
+      <div class="form-group">
+        <label for="mesa-forma">Forma</label>
+        <select id="mesa-forma" required>
+          <option value="redonda">Redonda</option>
+          <option value="cuadrada">Cuadrada</option>
+          <option value="rectangular">Rectangular</option>
+          <option value="imperial">Imperial</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="mesa-capacidad">Capacidad</label>
+        <input type="number" id="mesa-capacidad" min="1" max="30" value="8" required>
+      </div>
+      <p class="modal-error" id="mesa-modal-error" role="alert"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn-outline" id="mesa-cancel-btn">Cancelar</button>
+        <button type="submit" class="btn-primary" id="mesa-submit-btn">Guardar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: CONFIRMAR BORRADO DE MESA
+     ============================================================ -->
+<div class="modal-overlay" id="delete-mesa-modal">
+  <div class="modal-box">
+    <h2 class="modal-title">¿Eliminar mesa?</h2>
+    <p class="modal-desc" id="delete-mesa-desc"></p>
+    <p class="modal-warning">Esta acción no se puede deshacer.</p>
+    <div class="modal-actions">
+      <button type="button" class="btn-outline" id="delete-mesa-cancel-btn">Cancelar</button>
+      <button type="button" class="btn-danger" id="delete-mesa-confirm-btn">Sí, eliminar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: ASIGNAR ASIENTO (buscador rápido de invitados)
+     Se abre al tocar una silla vacía sin tener a nadie
+     seleccionado en el panel de "Sin sentar".
+     ============================================================ -->
+<div class="modal-overlay" id="asignar-modal">
+  <div class="modal-box">
+    <h2 class="modal-title">Sentar a alguien aquí</h2>
+    <p class="modal-desc" id="asignar-modal-desc"></p>
+    <div class="form-group">
+      <label for="asignar-buscar">Buscar invitado</label>
+      <input type="text" id="asignar-buscar" placeholder="Nombre del invitado…" autocomplete="off">
+    </div>
+    <div class="sinsentar-list" id="asignar-lista" style="max-height: 40vh;"></div>
+    <div class="modal-actions">
+      <button type="button" class="btn-outline" id="asignar-cancel-btn">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- Notificaciones (reemplaza los alert() nativos) -->
+<div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="mesas.js"></script>
+</body>
+</html>

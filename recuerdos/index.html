@@ -1,41 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recuerdos — Ezequiel & Karla</title>
-
-  <!-- Fuentes (mismas que la invitación) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <link rel="stylesheet" href="recuerdos.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuerdos — Karla &amp; Ezequiel</title>
+  <meta name="robots" content="noindex, nofollow">
+ 
+  <!-- Sin og: ni twitter: aquí — esta página no se comparte como link externo -->
+ 
+  <!-- Favicon -->
+  <link rel="icon" href="../assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="../assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+  <link rel="apple-touch-icon" href="../assets/icons/favicon-192.png">
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="recuerdos.css">
 </head>
+
 <body>
 
-  <!-- ===================== HEADER ===================== -->
   <header class="rec-header">
-    <p class="rec-header__eyebrow">Ezequiel & Karla</p>
+    <p class="rec-header__eyebrow">Karla & Ezequiel</p>
     <h1 class="rec-header__title">Nuestros Recuerdos</h1>
     <p class="rec-header__sub">Comparte las fotos y videos de este día especial</p>
   </header>
 
-  <!-- ===================== ZONA DE SUBIDA ===================== -->
   <main class="rec-main">
 
-    <section class="rec-upload-card rec-upload-card--narrow" id="upload-section">
+    <!-- ===== ZONA DE SUBIDA ===== -->
+    <section class="rec-upload-card" id="upload-section">
 
-      <!-- Nombre (opcional) -->
       <div class="rec-field">
-        <label class="rec-label" for="guest-name">Tu nombre <span class="rec-label__optional">(opcional)</span></label>
-        <input class="rec-input" type="text" id="guest-name" placeholder="Ej. María García" autocomplete="name" />
+        <label class="rec-label" for="guest-name">
+          Tu nombre <span class="rec-label__optional">(opcional)</span>
+        </label>
+        <input class="rec-input" type="text" id="guest-name"
+               placeholder="Ej. María García" autocomplete="name" />
       </div>
 
-      <!-- Drop zone -->
-      <div class="rec-dropzone" id="dropzone" role="button" tabindex="0" aria-label="Seleccionar fotos o videos">
+      <div class="rec-dropzone" id="dropzone" role="button" tabindex="0"
+           aria-label="Seleccionar fotos o videos">
         <div class="rec-dropzone__icon" aria-hidden="true">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.2"
+               stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
             <polyline points="17 8 12 3 7 8"/>
             <line x1="12" y1="3" x2="12" y2="15"/>
@@ -46,21 +57,13 @@
         <input type="file" id="file-input" accept="image/*,video/*" multiple hidden />
       </div>
 
-      <!-- Preview de archivos seleccionados -->
-      <div class="rec-preview" id="preview-grid" hidden></div>
+      <!-- Preview por archivo con progreso individual -->
+      <div class="rec-queue" id="upload-queue" hidden></div>
 
-      <!-- Barra de progreso -->
-      <div class="rec-progress-wrap" id="progress-wrap" hidden>
-        <div class="rec-progress-bar" id="progress-bar"></div>
-        <p class="rec-progress-label" id="progress-label">Subiendo…</p>
-      </div>
-
-      <!-- Botón subir -->
       <button class="rec-btn-primary" id="upload-btn" disabled>
         Compartir recuerdos
       </button>
 
-      <!-- Mensajes de estado -->
       <p class="rec-status rec-status--ok" id="status-ok" hidden>
         ¡Gracias! Tus fotos ya están en el álbum ✦
       </p>
@@ -68,16 +71,16 @@
 
     </section>
 
-    <!-- ===================== GALERÍA RECIENTES ===================== -->
+    <!-- ===== GALERÍA ===== -->
     <section class="rec-gallery-section">
       <div class="rec-gallery-heading">
         <p class="rec-gallery-eyebrow">El Álbum</p>
         <h2 class="rec-section-title">Últimas fotos compartidas</h2>
         <div class="rec-gallery-rule" aria-hidden="true"><span></span></div>
       </div>
-      <div class="rec-gallery" id="gallery-grid">
-        <!-- se llena desde JS -->
-      </div>
+
+      <div class="rec-gallery" id="gallery-grid"></div>
+
       <div class="rec-gallery-empty" id="gallery-empty" hidden>
         <p>Aún no hay fotos — ¡sé el primero en compartir!</p>
       </div>
@@ -88,12 +91,10 @@
 
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
   <footer class="rec-footer">
-    <p>Con amor — Ezequiel & Karla ✦ 2025</p>
+    <p>Con amor — Karla & Ezequiel ✦ 2026</p>
   </footer>
 
-  <!-- Supabase CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="recuerdos.js"></script>
 </body>

@@ -1,0 +1,263 @@
+/* =========================================================
+   ÁLBUM PRIVADO — Estilos
+   Extiende admin.css, no lo reemplaza
+   ========================================================= */
+
+/* ---------- Stats rápidas ---------- */
+.album-stats {
+  display: flex;
+  gap: 2rem;
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.album-stat { text-align: center; min-width: 52px; }
+
+.album-stat__val {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--borgona);
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.album-stat__lbl {
+  font-size: 0.68rem;
+  color: var(--taupe);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+/* ---------- Toolbar / filtros ---------- */
+.album-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.album-filters {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--taupe);
+  background: var(--blanco);
+  border: 1px solid var(--borde);
+  border-radius: 20px;
+  padding: 0.35rem 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.filter-btn:hover { border-color: var(--borgona); color: var(--borgona); }
+
+.filter-btn--active {
+  background: var(--borgona);
+  border-color: var(--borgona);
+  color: #fff;
+}
+
+/* ---------- Grid del álbum ---------- */
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-bottom: 1.5rem;
+}
+
+.album-item {
+  position: relative;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--crema);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.album-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.14);
+}
+
+.album-item img,
+.album-item video {
+  width: 100%; height: 100%;
+  object-fit: cover; display: block;
+  transition: transform 0.4s;
+}
+
+.album-item:hover img,
+.album-item:hover video { transform: scale(1.04); }
+
+/* Oculta = desaturada */
+.album-item--hidden img,
+.album-item--hidden video { filter: grayscale(1) opacity(0.5); }
+
+.album-item__video-badge {
+  position: absolute; top: 6px; left: 6px;
+  background: rgba(62,15,28,0.75);
+  color: #E8C98A;
+  font-size: 0.6rem; font-weight: 600;
+  padding: 2px 6px; border-radius: 3px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+.album-item__hidden-badge {
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.6rem; font-weight: 600;
+  padding: 2px 6px; border-radius: 3px;
+  letter-spacing: 0.04em;
+  pointer-events: none;
+}
+
+.album-item__guest {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 1.5rem 0.5rem 0.4rem;
+  background: linear-gradient(to top, rgba(30,8,14,0.8), transparent);
+  font-size: 0.65rem; color: rgba(250,240,232,0.9);
+  opacity: 0; transition: opacity 0.25s;
+}
+
+.album-item:hover .album-item__guest { opacity: 1; }
+
+/* ---------- Paginación ---------- */
+.album-pagination {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 0 2rem;
+}
+
+.album-pagination__info {
+  font-size: 0.75rem;
+  color: var(--taupe);
+}
+
+.album-empty {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--taupe);
+  font-style: italic;
+  padding: 3rem 0;
+}
+
+.album-loading {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--taupe);
+  padding: 2rem 0;
+}
+
+/* ---------- Lightbox privado ---------- */
+.album-lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(15, 4, 8, 0.97);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 1rem;
+  animation: lb-in 0.2s ease;
+}
+
+.album-lightbox[hidden] { display: none; }
+
+@keyframes lb-in { from { opacity: 0; } to { opacity: 1; } }
+
+.album-lightbox__close {
+  position: absolute; top: 1rem; right: 1rem;
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(201,169,110,0.15);
+  border: 1px solid rgba(201,169,110,0.3);
+  color: #E8C98A; font-size: 1.1rem;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s;
+}
+
+.album-lightbox__close:hover { background: rgba(201,169,110,0.3); }
+
+.album-lightbox__media {
+  flex: 1; display: flex; align-items: center; justify-content: center;
+  width: 100%; max-height: calc(100vh - 120px);
+  overflow: hidden;
+}
+
+.album-lightbox__media img,
+.album-lightbox__media video {
+  max-width: 100%; max-height: 100%;
+  object-fit: contain; border-radius: 4px;
+}
+
+/* Toolbar inferior del lightbox */
+.album-lightbox__toolbar {
+  width: 100%; max-width: 600px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; padding-top: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.album-lightbox__meta {
+  font-size: 0.75rem; color: rgba(250,240,232,0.55);
+  flex: 1; min-width: 0;
+}
+
+.album-lightbox__actions {
+  display: flex; gap: 0.5rem; flex-shrink: 0; flex-wrap: wrap;
+}
+
+.lb-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: inherit; font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.5rem 0.9rem; border-radius: 4px;
+  border: 1px solid; cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.lb-btn--toggle {
+  background: transparent;
+  border-color: rgba(201,169,110,0.4);
+  color: #E8C98A;
+}
+.lb-btn--toggle:hover { background: rgba(201,169,110,0.15); }
+
+.lb-btn--download {
+  background: transparent;
+  border-color: rgba(201,169,110,0.4);
+  color: #E8C98A;
+}
+.lb-btn--download:hover { background: rgba(201,169,110,0.15); }
+
+.lb-btn--delete {
+  background: transparent;
+  border-color: rgba(180,40,40,0.4);
+  color: #E07070;
+}
+.lb-btn--delete:hover { background: rgba(180,40,40,0.15); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .album-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 6px;
+  }
+  .album-stats { gap: 1.25rem; }
+  .album-lightbox__toolbar { flex-direction: column; align-items: flex-start; }
+}

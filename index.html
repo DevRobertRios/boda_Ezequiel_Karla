@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="es-MX">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Karla &amp; Ezequiel — Nos Casamos | 11 de Octubre 2026</title>
 <meta name="description" content="Acompáñanos a celebrar la boda de Karla y Ezequiel el 11 de octubre de 2026 en Jalisco, México.">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Karla & Ezequiel — Nos Casamos">
-<meta property="og:description" content="11 de Octubre de 2026 · Jalisco, México">
+<meta name="robots" content="noindex, nofollow">
+ 
+<!-- Open Graph — preview al pegar el link en WhatsApp, iMessage, etc. -->
+<meta property="og:title" content="Karla &amp; Ezequiel — Nos Casamos 💍">
+<meta property="og:description" content="11 de Octubre de 2026 · Jalisco, México — Acompáñanos a celebrar este día tan especial.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="assets/icons/og-cover.jpg">
-
-<link rel="icon" href="assets/icons/favicon.png" type="image/png">
+<meta property="og:url" content="https://TU-DOMINIO.com/">
+<meta property="og:image" content="https://TU-DOMINIO.com/assets/icons/og-cover.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_MX">
+ 
+<!-- Twitter Card (también lo lee iMessage en iOS) -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Karla &amp; Ezequiel — Nos Casamos 💍">
+<meta name="twitter:description" content="11 de Octubre de 2026 · Jalisco, México">
+<meta name="twitter:image" content="https://TU-DOMINIO.com/assets/icons/og-cover.jpg">
+ 
+<!-- Favicon — todos los tamaños necesarios -->
+<link rel="icon" href="assets/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="assets/icons/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="assets/icons/favicon-192.png">
+ 
 <link rel="stylesheet" href="css/style.css">
-
-<!-- Swiper.js para la galería -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css">
 </head>
 <body>
 
@@ -72,7 +85,7 @@
   <header class="hero">
     <!-- Imagen de fondo con overlay elegante -->
     <div class="hero__bg-photo" aria-hidden="true">
-      <img src="assets/fotos/pareja-principal.jfif" alt="" loading="eager">
+      <img src="assets/fotos/foto-principal.jfif" alt="" loading="eager">
     </div>
     <div class="hero__overlay" aria-hidden="true"></div>
     <div class="particles-layer" data-count="14"></div>
@@ -156,45 +169,41 @@
   <!-- Separador onda: love-message (marfil) → gallery (borgoña oscuro) -->
   <div class="wave-sep wave-sep--to-dark" aria-hidden="true">
     <svg viewBox="0 0 480 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,20 C80,40 160,0 240,20 C320,40 400,0 480,20 L480,40 L0,40 Z" fill="#3D0F1C"/>
+      <path d="M0,4 C80,24 160,0 240,12 C320,28 400,4 480,10 L480,40 L0,40 Z" fill="#3D0F1C"/>
     </svg>
   </div>
 
   <section class="section gallery fade-up" aria-labelledby="galeria-title" style="padding-bottom:var(--space-xl)">
-    <!-- Bokeh circles decorativos -->
-    <div class="gallery__bokeh" aria-hidden="true">
-      <span class="bokeh bokeh--1"></span>
-      <span class="bokeh bokeh--2"></span>
-      <span class="bokeh bokeh--3"></span>
-      <span class="bokeh bokeh--4"></span>
-      <span class="bokeh bokeh--5"></span>
-    </div>
-
     <div class="section-title">
       <p class="section-title__eyebrow">Momentos</p>
       <h2 class="section-title__heading" id="galeria-title">Nuestra Galería</h2>
       <div class="gold-rule" aria-hidden="true"><span class="gold-rule__diamond"></span></div>
     </div>
 
-    <!-- Marco ornamental alrededor del carrusel -->
-    <div class="gallery__frame" aria-hidden="true">
-      <span class="gallery__frame-corner gallery__frame-corner--tl"></span>
-      <span class="gallery__frame-corner gallery__frame-corner--tr"></span>
-      <span class="gallery__frame-corner gallery__frame-corner--bl"></span>
-      <span class="gallery__frame-corner gallery__frame-corner--br"></span>
-    </div>
-
-    <div class="swiper gallery__swiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="assets/fotos/galeria-01.jpg" alt="Ezequiel y Karla, foto 1" loading="lazy"></div>
-        <div class="swiper-slide"><img src="assets/fotos/galeria-02.jpg" alt="Ezequiel y Karla, foto 2" loading="lazy"></div>
-        <div class="swiper-slide"><img src="assets/fotos/galeria-03.jpg" alt="Ezequiel y Karla, foto 3" loading="lazy"></div>
-        <div class="swiper-slide"><img src="assets/fotos/galeria-04.jpg" alt="Ezequiel y Karla, foto 4" loading="lazy"></div>
+    <div class="gallery-carousel" id="galleryCarousel">
+      <div class="gallery-carousel__viewport">
+        <div class="gallery-carousel__track" id="galleryTrack">
+          <div class="gallery-carousel__slide"><img src="assets/fotos/galeria-01.jpg" alt="Ezequiel y Karla, foto 1" loading="lazy"></div>
+          <div class="gallery-carousel__slide"><img src="assets/fotos/galeria-02.jpeg" alt="Ezequiel y Karla, foto 2" loading="lazy"></div>
+          <div class="gallery-carousel__slide"><img src="assets/fotos/galeria-03.jfif" alt="Ezequiel y Karla, foto 3" loading="lazy"></div>
+          <div class="gallery-carousel__slide"><img src="assets/fotos/galeria-04.jpg" alt="Ezequiel y Karla, foto 4" loading="lazy"></div>
+        </div>
       </div>
-      <div class="swiper-pagination gallery__pagination"></div>
+
+      <button class="gallery-carousel__btn gallery-carousel__btn--prev" id="galleryPrev" aria-label="Foto anterior" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button class="gallery-carousel__btn gallery-carousel__btn--next" id="galleryNext" aria-label="Siguiente foto" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+
+      <div class="gallery-carousel__dots" id="galleryDots"></div>
     </div>
 
-    <!-- Contador de fotos + firma -->
     <p class="gallery__caption text-script">Cada momento, para siempre</p>
   </section>
 
@@ -639,15 +648,32 @@
     <div class="particles-layer" data-count="8" aria-hidden="true"></div>
     <div class="section-title">
       <p class="section-title__eyebrow">Captura El Momento</p>
-      <h2 class="section-title__heading" id="fotos-title">Comparte Tus Fotos</h2>
+      <h2 class="section-title__heading" id="fotos-title">Nuestro Álbum</h2>
     </div>
 
-    <p class="share-photos__hashtag">#EzequielYKarla2026</p>
-    <p class="share-photos__desc">Ayúdanos a capturar los mejores momentos de este día. Comparte tus fotos utilizando el siguiente código QR:</p>
+    <p class="share-photos__hashtag">#KarlaYEzequiel2026</p>
+    <p class="share-photos__desc">Escanea el código o toca el botón para compartir tus fotos y videos del día. Cada recuerdo que subas quedará en nuestro álbum para siempre.</p>
 
-    <div class="share-photos__qr">
-      <img src="assets/qr/google-photos-qr.png" alt="Código QR para subir fotos a Google Photos" loading="lazy">
+    <!-- QR apunta directo a /recuerdos — ideal para imprimir o mostrar en pantallas -->
+    <div class="share-photos__qr-wrap">
+      <div class="share-photos__qr">
+        <img src="assets/qr/recuerdos-qr.png" alt="Código QR para subir fotos al álbum de recuerdos" loading="lazy">
+      </div>
+      <p class="share-photos__qr-hint">Escanea para abrir el álbum</p>
     </div>
+
+    <!-- Botón para quienes ya tienen la invitación abierta en su celular.
+         El script share-link.js lee el ?inv= de la URL y lo pasa como ?ref= -->
+    <a class="share-photos__btn" id="album-btn" href="recuerdos/index.html">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="3" y="3" width="18" height="18" rx="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <polyline points="21 15 16 10 5 21"/>
+      </svg>
+      Abrir álbum de recuerdos
+    </a>
+
     <div class="share-photos__seal-accent" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M12 2 L14 9 L21 9 L15.5 13.5 L17.5 21 L12 16.5 L6.5 21 L8.5 13.5 L3 9 L10 9 Z"/>
@@ -690,20 +716,11 @@
       </div>
 
       <div class="form-group">
-        <label>¿Nos Acompañarás?</label>
-        <div class="attendance-toggle">
-          <input type="radio" id="asiste-si" name="asiste" value="si" required>
-          <label for="asiste-si">Sí, asistiré</label>
-          <input type="radio" id="asiste-no" name="asiste" value="no">
-          <label for="asiste-no">No podré ir</label>
+        <label>¿Quiénes de Ustedes Asistirán?</label>
+        <p class="miembros-hint">Desmarca a quien no pueda acompañarnos.</p>
+        <div class="miembros-list" id="miembros-list">
+          <!-- Un checkbox por integrante, se genera en JS -->
         </div>
-      </div>
-
-      <div class="form-group" id="num-personas-group">
-        <label for="num_personas">¿Cuántos de Ustedes Asistirán?</label>
-        <select id="num_personas" name="num_personas">
-          <!-- Las opciones se generan en JS según los pases_asignados del código -->
-        </select>
       </div>
 
       <p class="rsvp-error" role="alert"></p>
@@ -758,34 +775,109 @@
 <!-- ============================================================
      SCRIPTS
      ============================================================ -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script>
 <script>
-// Inicialización del swiper de galería con efecto coverflow
+// ============================================================
+// Carrusel de galería — implementación propia, sin librerías.
+// Track flex + transform: translateX, todo en % (no depende de
+// medir anchos en px, así que no se rompe con reflow/fuentes/
+// imágenes cargando en mobile o desktop).
+// ============================================================
 document.addEventListener('DOMContentLoaded', function () {
-  const galleryEl = document.querySelector('.gallery__swiper');
-  if (galleryEl && window.Swiper) {
-    new Swiper(galleryEl, {
-      effect: 'coverflow',
-      grabCursor: true,
-      centeredSlides: true,
-      slidesPerView: 1.4,
-      loop: true,
-      coverflowEffect: {
-        rotate: 8,
-        stretch: 0,
-        depth: 120,
-        modifier: 1.5,
-        slideShadows: true,
-      },
-      pagination: {
-        el: '.gallery__pagination',
-        clickable: true,
-      },
-      breakpoints: {
-        768: { slidesPerView: 2 },
-      },
-    });
+  const root = document.getElementById('galleryCarousel');
+  if (!root) return;
+
+  const track   = document.getElementById('galleryTrack');
+  const slides  = Array.from(track.children);
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  const dotsWrap = document.getElementById('galleryDots');
+  const total = slides.length;
+  if (total === 0) return;
+
+  let index = 0;
+  let autoplayTimer = null;
+
+  // ---- Construir puntos de paginación ----
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'gallery-carousel__dot';
+    dot.setAttribute('aria-label', 'Ir a foto ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i, true));
+    dotsWrap.appendChild(dot);
+    return dot;
+  });
+
+  function render() {
+    track.style.transform = 'translateX(' + (index * -100) + '%)';
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+    prevBtn.disabled = false;
+    nextBtn.disabled = false;
   }
+
+  function goTo(i, userAction) {
+    index = (i + total) % total;
+    render();
+    if (userAction) restartAutoplay();
+  }
+
+  function next(userAction) { goTo(index + 1, userAction); }
+  function prev(userAction) { goTo(index - 1, userAction); }
+
+  prevBtn.addEventListener('click', () => prev(true));
+  nextBtn.addEventListener('click', () => next(true));
+
+  // ---- Teclado (cuando el carrusel tiene foco) ----
+  root.setAttribute('tabindex', '0');
+  root.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') prev(true);
+    if (e.key === 'ArrowRight') next(true);
+  });
+
+  // ---- Swipe táctil ----
+  let touchStartX = 0;
+  let touchDeltaX = 0;
+  let isTouching = false;
+
+  track.addEventListener('touchstart', (e) => {
+    isTouching = true;
+    touchStartX = e.touches[0].clientX;
+    touchDeltaX = 0;
+    stopAutoplay();
+  }, { passive: true });
+
+  track.addEventListener('touchmove', (e) => {
+    if (!isTouching) return;
+    touchDeltaX = e.touches[0].clientX - touchStartX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    if (!isTouching) return;
+    isTouching = false;
+    const threshold = 40; // px mínimos para contar como swipe
+    if (touchDeltaX > threshold) prev(true);
+    else if (touchDeltaX < -threshold) next(true);
+    else restartAutoplay();
+  });
+
+  // ---- Autoplay suave, se pausa al interactuar ----
+  function startAutoplay() {
+    stopAutoplay();
+    autoplayTimer = setInterval(() => next(false), 4500);
+  }
+  function stopAutoplay() {
+    if (autoplayTimer) clearInterval(autoplayTimer);
+  }
+  function restartAutoplay() {
+    stopAutoplay();
+    startAutoplay();
+  }
+
+  root.addEventListener('mouseenter', stopAutoplay);
+  root.addEventListener('mouseleave', startAutoplay);
+
+  render();
+  startAutoplay();
 });
 </script>
 <script src="js/envelope.js"></script>
@@ -797,5 +889,18 @@ document.addEventListener('DOMContentLoaded', function () {
 <script src="js/main.js"></script>
 <!-- rsvp.js ahora hace todo el flujo: lee ?inv= de la URL, busca al invitado
      en Supabase, pinta el saludo personalizado y envía la confirmación. -->
+
+<script>
+  /* Pasa el código del invitado (?inv=) al botón del álbum como ?ref=
+     Si la URL no tiene ?inv=, el botón va a /recuerdos sin parámetros
+     y el invitado queda anónimo — exactamente el comportamiento correcto. */
+  (function () {
+    const inv = new URLSearchParams(window.location.search).get('inv');
+    const btn = document.getElementById('album-btn');
+    if (btn && inv) {
+      btn.href = 'recuerdos/index.html?ref=' + encodeURIComponent(inv);
+    }
+  })();
+</script>
 </body>
 </html>
