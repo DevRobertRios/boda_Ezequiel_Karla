@@ -637,6 +637,11 @@ input, select, textarea { font-family: inherit; }
 
 .t-center { text-align: center; }
 .t-right  { text-align: right; }
+.invitados-table th.t-center {text-align: center;}
+.invitados-table th.t-right {
+  text-align: right;
+  padding-right: 3.1rem;
+}
 
 /* Celda de nombre con avatar de iniciales */
 .guest-cell {
@@ -1067,6 +1072,12 @@ input, select, textarea { font-family: inherit; }
   border-left: 3px solid var(--borgona);
   border-radius: var(--radius-sm);
   padding: 0.75rem 0.9rem;
+  flex-wrap: wrap;
+}
+
+.copy-item__info {
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .copy-item__name {
@@ -1083,16 +1094,47 @@ input, select, textarea { font-family: inherit; }
   margin-top: 2px;
 }
 
+.copy-item__btns {
+  display: flex;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
 .copy-item__btn {
   flex-shrink: 0;
   font-size: 0.72rem;
   padding: 0.45rem 0.85rem;
 }
 
+.copy-item__btn--ghost {
+  background: transparent;
+  color: var(--taupe);
+  border-color: transparent;
+}
+
+.copy-item__btn--ghost:hover {
+  background: var(--borgona-suave);
+  color: var(--borgona);
+  border-color: var(--borgona-borde);
+}
+
 .copy-item__btn.copied {
   background: var(--success-text);
   color: var(--blanco);
   border-color: var(--success-text);
+}
+
+@media (max-width: 520px) {
+  .copy-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .copy-item__btns {
+    width: 100%;
+  }
+  .copy-item__btn {
+    flex: 1 1 0;
+  }
 }
 
 /* =========================================================

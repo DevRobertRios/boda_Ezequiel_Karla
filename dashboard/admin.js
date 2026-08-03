@@ -424,14 +424,62 @@
     if (miembrosRow) miembrosRow.classList.toggle('is-hidden', !expandidos.has(codigo));
   }
  
-  function copiarAlPortapapeles(texto, btnRef) {
-    navigator.clipboard.writeText(texto).then(() => {
-      if (btnRef) {
-        const original = btnRef.textContent;
-        btnRef.textContent = '✓';
-        setTimeout(() => { btnRef.textContent = original; }, 1200);
+  /**
+   * Copia texto al portapapeles con fallback para móvil.
+   * navigator.clipboard.writeText() requiere HTTPS y falla en silencio
+   * (sin catch) en varios navegadores móviles / webviews (WhatsApp,
+   * Instagram, etc). Por eso probamos primero la API moderna y, si
+   * falla o no existe, usamos el truco viejo de textarea + execCommand,
+   * que funciona en casi cualquier navegador aunque no haya HTTPS.
+   * Siempre le avisamos al usuario el resultado (éxito o error real).
+   */
+  function copiarAlPortapapeles(texto, btnRef, textoExito, duracionMs) {
+    textoExito = textoExito || '✓';
+    duracionMs = duracionMs || 1200;
+    const marcarExito = () => {
+      if (!btnRef) return;
+      const original = btnRef.textContent;
+      btnRef.textContent = textoExito;
+      btnRef.classList.add('copied');
+      setTimeout(() => {
+        btnRef.textContent = original;
+        btnRef.classList.remove('copied');
+      }, duracionMs);
+    };
+
+    const copiarConFallback = () => {
+      try {
+        const textarea = document.createElement('textarea');
+        textarea.value = texto;
+        // Evita que se vea o mueva el scroll en iOS
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '0';
+        textarea.style.width = '1px';
+        textarea.style.height = '1px';
+        textarea.style.padding = '0';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        textarea.setSelectionRange(0, textarea.value.length); // necesario en iOS Safari
+        const exito = document.execCommand('copy');
+        document.body.removeChild(textarea);
+        if (exito) {
+          marcarExito();
+        } else {
+          alert('No se pudo copiar automáticamente. Mantén presionado el texto para copiarlo manualmente.');
+        }
+      } catch (err) {
+        alert('No se pudo copiar automáticamente. Mantén presionado el texto para copiarlo manualmente.');
       }
-    });
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText && window.isSecureContext) {
+      navigator.clipboard.writeText(texto).then(marcarExito).catch(copiarConFallback);
+    } else {
+      copiarConFallback();
+    }
   }
  
   /* =========================================================
@@ -814,15 +862,18 @@
  
     copyList.innerHTML = invitadosCache.map((inv) => {
       const link = construirLink(inv.codigo);
-      const nombres = inv.miembros.map((m) => m.nombre).join(', ');
-      const mensaje = `Hola ${inv.nombre_mostrar}! Nos encantaría contar con su presencia en nuestra boda. Tenemos ${inv.totalIntegrantes} lugar(es) reservado(s) para: ${nombres}. Pueden confirmar su asistencia aquí: ${link}`;
+      const mensajeCompleto = "Hola! Con mucha alegría queremos invitar a '" + inv.nombre_mostrar + "' a celebrar la boda de Karla & Ezequiel. 💍\n\nSerá un honor contar con su presencia en este día tan especial.\n\nAquí toda la información — ubicación, horario y confirmación de asistencia:\n" + link + "\n\n¡Los esperamos! 🤍";
+      const mensajeCorto = `💍 Karla & Ezequiel se casan — aquí toda la info:\n${link}`;
       return `
         <div class="copy-item">
           <div class="copy-item__info">
             <div class="copy-item__name">${escapeHtml(inv.nombre_mostrar)} · ${inv.totalIntegrantes} integrante(s)</div>
             <div class="copy-item__link">${escapeHtml(link)}</div>
           </div>
-          <button class="btn-outline copy-item__btn" data-mensaje="${escapeHtml(mensaje)}">Copiar mensaje</button>
+          <div class="copy-item__btns">
+            <button class="btn-outline copy-item__btn" data-mensaje="${escapeHtml(mensajeCompleto)}">Copiar mensaje</button>
+            <button class="btn-outline copy-item__btn copy-item__btn--ghost" data-link="${escapeHtml(mensajeCorto)}">Copiar link</button>
+          </div>
         </div>
       `;
     }).join('');
@@ -831,16 +882,12 @@
   });
  
   copyList.addEventListener('click', (e) => {
-    const btn = e.target.closest('button[data-mensaje]');
+    const btnMensaje = e.target.closest('button[data-mensaje]');
+    const btnLink = e.target.closest('button[data-link]');
+    const btn = btnMensaje || btnLink;
     if (!btn) return;
-    navigator.clipboard.writeText(btn.dataset.mensaje).then(() => {
-      btn.textContent = 'Copiado ✓';
-      btn.classList.add('copied');
-      setTimeout(() => {
-        btn.textContent = 'Copiar mensaje';
-        btn.classList.remove('copied');
-      }, 1500);
-    });
+    const texto = btnMensaje ? btn.dataset.mensaje : btn.dataset.link;
+    copiarAlPortapapeles(texto, btn, 'Copiado ✓', 1500);
   });
  
   copyCloseBtn.addEventListener('click', () => copyModal.classList.remove('is-visible'));

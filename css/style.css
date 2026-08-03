@@ -2804,6 +2804,12 @@ ul, ol {
 .hero__names {
   position: relative;
   overflow: hidden;
+  /* "Great Vibes" tiene trazos muy altos (K) y muy bajos (q, j).
+     Sin este padding, el overflow:hidden de arriba (necesario para
+     que el brillo no se salga del texto) corta las puntas de las
+     letras. El padding le da espacio antes de recortar. */
+  padding: 0.25em 0.15em 0.3em;
+  margin: -0.25em -0.15em -0.3em;
 }
 
 .hero__names::after {
