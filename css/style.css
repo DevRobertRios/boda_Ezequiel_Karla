@@ -2736,6 +2736,52 @@ ul, ol {
   letter-spacing: 0.06em;
 }
 
+/* Card Mesa de Regalos Liverpool */
+.gift-liverpool-card {
+  max-width: 340px;
+  margin: 0 auto var(--space-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(201, 169, 110, 0.25);
+  border-radius: 4px;
+  overflow: hidden;
+  backdrop-filter: blur(4px);
+  text-align: center;
+  padding: var(--space-md);
+}
+
+.gift-liverpool-card__icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto var(--space-xs);
+  color: var(--color-oro-claro);
+}
+
+.gift-liverpool-card__icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--color-oro-claro);
+}
+
+.gift-liverpool-card__label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.2rem;
+  color: var(--color-texto-claro);
+  margin-bottom: 0.6rem;
+}
+
+.gift-liverpool-card__text {
+  font-size: 0.82rem;
+  line-height: 1.6;
+  color: rgba(250, 240, 232, 0.75);
+  margin-bottom: var(--space-sm);
+}
+
+.gift-liverpool-card__btn {
+  padding: 0.7rem 1.8rem;
+  font-size: 0.68rem;
+}
+
 
 /* =========================================================
    MEJORAS VISUALES GLOBALES — Hero, Love Message, Misc
